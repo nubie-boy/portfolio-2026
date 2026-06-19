@@ -3,94 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio 2026 — Multi-Agent Orchestration</title>
+    <title>nubie-boy · Multi-Agent Portfolio</title>
     <link rel="stylesheet" href="assets/css/portfolio.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-badge">2026</div>
-            <h1>Multi-Agent Orchestration</h1>
-            <p class="subtitle">
-                AI-Augmented Cybersecurity &middot; OSINT Reconnaissance &middot; Autonomous Trading
-            </p>
-            <p class="bio">
-                Tidak sekadar menggunakan AI — saya merancang sistem di mana AI Agents bekerja bersama
-                untuk menghasilkan intelligence yang actionable. Dari OSINT reconnaissance hingga automated
-                vulnerability assessment dan trading analysis.
-            </p>
-        </header>
 
-        <section class="projects">
-            <div class="project-card">
-                <span class="project-number">01</span>
-                <h2>Automated Security Recon Pipeline</h2>
-                <p>
-                    Pipeline OSINT otomatis yang menerima target domain/IP → menjalankan reconnaissance
-                    via Santika Agent → menghasilkan executive report dalam bentuk HTML/Markdown.
-                    Berjalan otomatis via GitHub Actions setiap 24 jam.
+    <!-- ========== HERO ========== -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="hero-badge">Portfolio 2026</span>
+                <h1>
+                    Multi-Agent<br>
+                    <span class="gradient">Orchestration</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Saya merancang sistem di mana AI Agents bekerja bersama — 
+                    dari OSINT reconnaissance hingga vulnerability assessment 
+                    dan analisis pasar otomatis.
                 </p>
-                <div class="tags">
+                <p class="hero-bio">
+                    Tidak sekadar menggunakan AI. Saya mengorkestrasinya — 
+                    setiap agent punya peran, setiap output punya validasi, 
+                    dan semuanya berjalan otomatis.
+                </p>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-primary">
+                        Lihat Project &darr;
+                    </a>
+                    <a href="#stack" class="btn btn-secondary">
+                        Tech Stack
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-images">
+                <!-- Ningguang placeholder -->
+                <div class="agent-frame floating">
+                    <div class="gold-ring"></div>
+                    <div class="agent-placeholder">
+                        <span class="agent-icon">🏛️</span>
+                        <span class="agent-label">NINGGUANG</span>
+                        <span style="font-size:0.6rem;color:var(--text-muted)">Analisis &amp; Reporting</span>
+                    </div>
+                </div>
+                <!-- Santika placeholder -->
+                <div class="agent-frame floating-delayed">
+                    <div class="gold-ring"></div>
+                    <div class="agent-placeholder">
+                        <span class="agent-icon">🛡️</span>
+                        <span class="agent-label">SANTIKA</span>
+                        <span style="font-size:0.6rem;color:var(--text-muted)">OSINT &amp; Security</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ========== PROJECTS ========== -->
+    <section id="projects" class="projects container">
+        <div class="section-header reveal">
+            <h2>Project</h2>
+            <p>Tiga sistem yang berjalan nyata — bukan demo, bukan tutorial.</p>
+        </div>
+
+        <!-- Project A -->
+        <div class="project-card reveal reveal-delay-1">
+            <div class="project-main">
+                <span class="project-number">01</span>
+                <h3>Automated Security Recon Pipeline</h3>
+                <p class="project-desc">
+                    Pipeline OSINT otomatis yang menerima target domain atau IP, 
+                    menjalankan reconnaissance multi-layer via <strong>Santika Agent</strong>, 
+                    dan menghasilkan executive report yang siap disajikan ke klien.
+                </p>
+                <div class="project-highlight">
+                    <strong>Keunggulan:</strong> Berjalan otomatis setiap 24 jam via GitHub Actions. 
+                    Output berupa report HTML/Markdown dengan executive summary, attack surface map, 
+                    dan severity breakdown. Cocok untuk security assessment rutin.
+                </div>
+                <div class="project-tags">
                     <span>Santika</span>
                     <span>OSINT</span>
                     <span>Pipeline</span>
                     <span>GitHub Actions</span>
                 </div>
-                <a href="project-a-osint-pipeline/" class="project-link">Lihat Project →</a>
             </div>
+            <div class="project-aside">
+                <span class="project-status status-dev">Dalam Pengembangan</span>
+                <a href="project-a-osint-pipeline/" class="project-link-card">
+                    Detail <span class="arrow">&rarr;</span>
+                </a>
+            </div>
+        </div>
 
-            <div class="project-card">
+        <!-- Project B -->
+        <div class="project-card reveal reveal-delay-2">
+            <div class="project-main">
                 <span class="project-number">02</span>
-                <h2>AI-Augmented VA Lab</h2>
-                <p>
-                    Vulnerability Assessment lab dengan Metasploitable/DVWA di Linux VM.
-                    Scanning manual + Santika cross-validation → Ningguang risk matrix &
-                    remediation plan. Setiap finding dilengkapi severity scoring dan rekomendasi.
+                <h3>AI-Augmented Vulnerability Assessment Lab</h3>
+                <p class="project-desc">
+                    Lab Vulnerability Assessment menggunakan target seperti Metasploitable 
+                    dan DVWA di Linux VM. Scanning dilakukan dengan Nmap, Nikto, dan Nuclei, 
+                    lalu hasilnya divalidasi oleh <strong>Santika Agent</strong> untuk mengurangi 
+                    false positive.
                 </p>
-                <div class="tags">
+                <div class="project-highlight">
+                    <strong>Keunggulan:</strong> Setiap temuan diverifikasi oleh AI sebelum masuk ke laporan. 
+                    Risk matrix dengan severity scoring (Critical → Low) dan remediation plan 
+                    yang aplikatif. Bukan sekadar daftar CVE — ada konteks dan prioritas.
+                </div>
+                <div class="project-tags">
                     <span>Vulnerability Assessment</span>
                     <span>Nmap</span>
                     <span>Risk Matrix</span>
                     <span>Linux</span>
                 </div>
-                <a href="project-b-va-lab/" class="project-link">Lihat Project →</a>
             </div>
+            <div class="project-aside">
+                <span class="project-status status-plan">Rencana</span>
+                <a href="project-b-va-lab/" class="project-link-card">
+                    Detail <span class="arrow">&rarr;</span>
+                </a>
+            </div>
+        </div>
 
-            <div class="project-card">
+        <!-- Project C -->
+        <div class="project-card reveal reveal-delay-3">
+            <div class="project-main">
                 <span class="project-number">03</span>
-                <h2>Autonomous Trading Dashboard</h2>
-                <p>
-                    Market scanner harian yang menganalisis SMC structure, candlestick patterns,
-                    dan technical indicators — menghasilkan interactive chart report otomatis
-                    setiap pukul 20:00 WITA. Track record publik selama 3+ bulan.
+                <h3>Autonomous Market Analysis Dashboard</h3>
+                <p class="project-desc">
+                    Market scanner harian yang menganalisis struktur SMC (Smart Money Concepts), 
+                    candlestick patterns, dan indikator teknikal — menghasilkan interactive chart 
+                    report secara otonom setiap pukul 20:00 WITA via <strong>Ningguang Agent</strong>.
                 </p>
-                <div class="tags">
+                <div class="project-highlight">
+                    <strong>Keunggulan:</strong> Berjalan 3+ bulan berturut-turut tanpa intervensi. 
+                    Setiap report mencakup market overview, skor teknis, dan rekomendasi level 
+                    entry/stop-loss/take-profit. Konsistensi adalah bukti utama.
+                </div>
+                <div class="project-tags">
                     <span>Ningguang</span>
                     <span>SMC</span>
                     <span>Technical Analysis</span>
                     <span>Bitunix</span>
                 </div>
-                <a href="project-c-trading-dashboard/" class="project-link">Lihat Project →</a>
             </div>
-        </section>
+            <div class="project-aside">
+                <span class="project-status status-plan">Rencana</span>
+                <a href="project-c-trading-dashboard/" class="project-link-card">
+                    Detail <span class="arrow">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
-        <section class="stack">
+    <!-- ========== TECH STACK ========== -->
+    <section id="stack" class="stack-section container">
+        <div class="section-header reveal">
             <h2>Tech Stack</h2>
-            <div class="stack-grid">
-                <div class="stack-item">Python</div>
-                <div class="stack-item">Bash</div>
-                <div class="stack-item">GitHub Actions</div>
-                <div class="stack-item">HTML/CSS</div>
-                <div class="stack-item">Nmap</div>
-                <div class="stack-item">Nuclei</div>
-                <div class="stack-item">Plotly</div>
-                <div class="stack-item">Pandas</div>
-            </div>
-        </section>
+            <p>Tools yang saya gunakan — semuanya open-source atau self-hosted.</p>
+        </div>
 
-        <footer>
-            <p>2026 &middot; Dibangun dengan AI Agents — diorkestrasi oleh manusia.</p>
-        </footer>
-    </div>
+        <div class="stack-grid reveal">
+            <span class="stack-item">Python</span>
+            <span class="stack-item">Bash</span>
+            <span class="stack-item">GitHub Actions</span>
+            <span class="stack-item">Nmap</span>
+            <span class="stack-item">Nuclei</span>
+            <span class="stack-item">Nikto</span>
+            <span class="stack-item">Metasploitable</span>
+            <span class="stack-item">Pandas</span>
+            <span class="stack-item">Plotly</span>
+            <span class="stack-item">HTML/CSS</span>
+            <span class="stack-item">Bitunix API</span>
+            <span class="stack-item">Linux</span>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="container">
+        <p>
+            2026 &middot; 
+            Dibangun dengan AI Agents — diorkestrasi oleh manusia. &middot;
+            <a href="https://linkedin.com/in/nubie-boy" class="linkedin-link" target="_blank">LinkedIn</a>
+        </p>
+    </footer>
+
+    <!-- ========== SCROLL REVEAL SCRIPT ========== -->
+    <script>
+        (function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        })();
+    </script>
+
 </body>
 </html>
