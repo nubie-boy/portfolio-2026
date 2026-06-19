@@ -196,58 +196,49 @@ body {
 }
 
 .agent-frame {
-    width: 160px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     border: 2px solid var(--border);
     background: var(--card-bg);
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     position: relative;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    cursor: default;
 }
 
 .agent-frame:hover {
     border-color: var(--gold);
+    box-shadow: 0 0 30px var(--gold-glow);
 }
 
 .agent-frame.floating {
-    animation: float 4s ease-in-out infinite;
+    animation: float 5s ease-in-out infinite;
 }
 
 .agent-frame.floating-delayed {
-    animation: float 4s ease-in-out infinite;
+    animation: float 5s ease-in-out infinite;
     animation-delay: 1.5s;
 }
 
 @keyframes float {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+    50% { transform: translateY(-7px); }
 }
 
-.agent-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+.agent-frame img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
 }
 
-.agent-icon {
-    font-size: 2.2rem;
-    opacity: 0.6;
-}
-
-.agent-label {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    letter-spacing: 1px;
-    text-transform: uppercase;
+.agent-frame:hover img {
+    transform: scale(1.08);
 }
 
 .agent-frame .gold-ring {
@@ -256,11 +247,30 @@ body {
     border-radius: 50%;
     border: 2px solid transparent;
     pointer-events: none;
+    transition: all 0.3s;
 }
 
 .agent-frame:hover .gold-ring {
     border-color: var(--gold);
-    box-shadow: 0 0 20px var(--gold-glow);
+    box-shadow: 0 0 25px var(--gold-glow);
+}
+
+.agent-label-overlay {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    padding: 2px 12px;
+    border-radius: 10px;
+    font-size: 0.6rem;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    pointer-events: none;
 }
 
 /* ---- Scroll indicator ---- */
@@ -484,6 +494,78 @@ body {
 .stack-item:hover {
     border-color: var(--gold);
     color: var(--gold-light);
+}
+
+/* ============ AGENT INTRO SECTION ============ */
+
+.agent-intro {
+    padding: 4rem 0;
+    border-top: 1px solid var(--border);
+}
+
+.agent-intro-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.agent-intro-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    transition: border-color 0.3s, transform 0.2s;
+}
+
+.agent-intro-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+}
+
+.agent-intro-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.agent-intro-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: border-color 0.3s;
+}
+
+.agent-intro-card:hover .agent-intro-avatar {
+    border-color: var(--gold);
+}
+
+.agent-intro-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.agent-intro-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold-light);
+}
+
+.agent-intro-role {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+}
+
+.agent-intro-card p {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.7;
 }
 
 /* ============ FOOTER ============ */
