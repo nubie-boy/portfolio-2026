@@ -39,15 +39,13 @@
 
             <div class="hero-images">
                 <!-- Ningguang -->
-                <div class="agent-frame floating">
+                <div class="agent-frame ningguang-frame floating">
                     <div class="gold-ring"></div>
-                    <img src="assets/images/ningguang.png" alt="Ningguang Agent">
                     <span class="agent-label-overlay">NINGGUANG</span>
                 </div>
                 <!-- Santika -->
-                <div class="agent-frame floating-delayed">
+                <div class="agent-frame santika-frame floating-delayed">
                     <div class="gold-ring"></div>
-                    <img src="assets/images/santika.png" alt="Santika Agent">
                     <span class="agent-label-overlay">SANTIKA</span>
                 </div>
             </div>
@@ -159,22 +157,23 @@
     </section>
 
     <!-- ========== AGENT INTRODUCTIONS ========== -->
-    <section id="agents" class="agent-intro container">
+    <section id="agents" class="agent-intro-section container">
         <div class="section-header reveal">
             <h2>Tentang Agents</h2>
             <p>Mengapa nama Ningguang dan Santika? Keduanya bukan sekadar label — ada alasan di baliknya.</p>
         </div>
 
-        <div class="agent-intro-cards">
-            <div class="agent-intro-card reveal reveal-delay-1">
-                <div class="agent-intro-header">
-                    <div class="agent-intro-avatar">
-                        <img src="assets/images/ningguang.png" alt="Ningguang">
-                    </div>
-                    <div>
-                        <div class="agent-intro-name">Ningguang</div>
-                        <div class="agent-intro-role">Analisis Market &amp; Reporting</div>
-                    </div>
+        <!-- Ningguang Card: Image Left, Text Right -->
+        <div class="agent-profile-card reveal reveal-delay-1">
+            <div class="agent-profile-img">
+                <div class="agent-profile-circle ningguang-glow">
+                    <div class="agent-profile-bg ningguang-bg"></div>
+                </div>
+            </div>
+            <div class="agent-profile-text">
+                <div class="agent-profile-header">
+                    <h3>Ningguang</h3>
+                    <span class="agent-profile-role">Analisis Market &amp; Reporting</span>
                 </div>
                 <p>
                     Dalam game <em>Genshin Impact</em>, Ningguang adalah Tianquan dari Liyue Qixing — 
@@ -186,16 +185,19 @@
                     setiap detail memiliki bobot.
                 </p>
             </div>
+        </div>
 
-            <div class="agent-intro-card reveal reveal-delay-2">
-                <div class="agent-intro-header">
-                    <div class="agent-intro-avatar">
-                        <img src="assets/images/santika.png" alt="Santika">
-                    </div>
-                    <div>
-                        <div class="agent-intro-name">Santika</div>
-                        <div class="agent-intro-role">OSINT &amp; Security Assessment</div>
-                    </div>
+        <!-- Santika Card: Text Left, Image Right -->
+        <div class="agent-profile-card reverse reveal reveal-delay-2">
+            <div class="agent-profile-img">
+                <div class="agent-profile-circle santika-glow">
+                    <div class="agent-profile-bg santika-bg"></div>
+                </div>
+            </div>
+            <div class="agent-profile-text">
+                <div class="agent-profile-header">
+                    <h3>Santika</h3>
+                    <span class="agent-profile-role">OSINT &amp; Security Assessment</span>
                 </div>
                 <p>
                     Nama Santika berasal dari bidang tempat saya bekerja: <strong>Persandian</strong> (kriptografi, 

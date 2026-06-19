@@ -196,18 +196,27 @@ body {
 }
 
 .agent-frame {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     border: 2px solid var(--border);
-    background: var(--card-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: var(--card-bg);
     position: relative;
     transition: border-color 0.3s, box-shadow 0.3s;
     cursor: default;
+}
+
+.agent-frame.ningguang-frame {
+    background-image: url('../images/ningguang.png');
+    background-position: center 38%;
+}
+
+.agent-frame.santika-frame {
+    background-image: url('../images/santika.png');
+    background-position: center 35%;
 }
 
 .agent-frame:hover {
@@ -227,18 +236,6 @@ body {
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-7px); }
-}
-
-.agent-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
-}
-
-.agent-frame:hover img {
-    transform: scale(1.08);
 }
 
 .agent-frame .gold-ring {
@@ -496,76 +493,138 @@ body {
     color: var(--gold-light);
 }
 
-/* ============ AGENT INTRO SECTION ============ */
+/* ============ AGENT PROFILE SECTION ============ */
 
-.agent-intro {
+.agent-intro-section {
     padding: 4rem 0;
     border-top: 1px solid var(--border);
 }
 
-.agent-intro-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
+/* ---- Profile Cards (alternating horizontal) ---- */
 
-.agent-intro-card {
+.agent-profile-card {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 2rem;
+    padding: 2.5rem;
+    margin-bottom: 1.5rem;
     transition: border-color 0.3s, transform 0.2s;
 }
 
-.agent-intro-card:hover {
+.agent-profile-card:hover {
     border-color: var(--gold);
     transform: translateY(-2px);
 }
 
-.agent-intro-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
+.agent-profile-card.reverse {
+    flex-direction: row-reverse;
 }
 
-.agent-intro-avatar {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    border: 2px solid var(--border);
-    overflow: hidden;
+/* ---- Profile Image (circular with glow) ---- */
+
+.agent-profile-img {
     flex-shrink: 0;
+}
+
+.agent-profile-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    position: relative;
     transition: border-color 0.3s;
 }
 
-.agent-intro-card:hover .agent-intro-avatar {
+.agent-profile-card:hover .agent-profile-circle {
     border-color: var(--gold);
 }
 
-.agent-intro-avatar img {
+.agent-profile-bg {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-.agent-intro-name {
-    font-size: 1.1rem;
+.ningguang-bg {
+    background-image: url('../images/ningguang.png');
+    background-position: center 38%;
+}
+
+.santika-bg {
+    background-image: url('../images/santika.png');
+    background-position: center 35%;
+}
+
+/* ---- Glow effects ---- */
+
+.ningguang-glow {
+    box-shadow: 0 0 0 0 rgba(201, 168, 76, 0);
+    transition: box-shadow 0.4s ease;
+}
+
+.agent-profile-card:hover .ningguang-glow {
+    box-shadow: 0 0 30px 4px rgba(201, 168, 76, 0.3);
+}
+
+.santika-glow {
+    box-shadow: 0 0 0 0 rgba(88, 166, 255, 0);
+    transition: box-shadow 0.4s ease;
+}
+
+.agent-profile-card:hover .santika-glow {
+    box-shadow: 0 0 30px 4px rgba(88, 166, 255, 0.25);
+}
+
+/* ---- Profile Text ---- */
+
+.agent-profile-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.agent-profile-header {
+    margin-bottom: 0.75rem;
+}
+
+.agent-profile-header h3 {
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--gold-light);
+    margin-bottom: 0.15rem;
 }
 
-.agent-intro-role {
+.agent-profile-role {
     font-size: 0.8rem;
     color: var(--text-muted);
-    margin-top: 0.15rem;
 }
 
-.agent-intro-card p {
-    font-size: 0.88rem;
+.agent-profile-text p {
+    font-size: 0.9rem;
     color: var(--text-soft);
-    line-height: 1.7;
+    line-height: 1.75;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 700px) {
+    .agent-profile-card,
+    .agent-profile-card.reverse {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+        padding: 2rem;
+    }
+
+    .agent-profile-circle {
+        width: 120px;
+        height: 120px;
+    }
 }
 
 /* ============ FOOTER ============ */
