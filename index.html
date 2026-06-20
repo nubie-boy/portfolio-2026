@@ -1,37 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nubie-boy · Multi-Agent Portfolio</title>
+    <title>AI Portofolio by Catur Ridho A.P.</title>
     <link rel="stylesheet" href="assets/css/portfolio.css">
+    <style>
+        /* ── Language Toggle ── */
+        .lang-toggle {
+            position: fixed;
+            top: 1.2rem;
+            right: 1.5rem;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(10, 10, 26, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            border-radius: 40px;
+            padding: 0.35rem 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #a89b85;
+            letter-spacing: 1px;
+        }
+        .lang-toggle:hover {
+            border-color: rgba(255, 215, 0, 0.6);
+            color: #ffd700;
+        }
+        .lang-toggle .indicator {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            line-height: 28px;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .lang-toggle.en .indicator {
+            background: rgba(0, 180, 255, 0.2);
+            color: #4fc3f7;
+        }
+        .lang-toggle .label {
+            padding: 0 0.3rem;
+        }
+
+        /* ── Smooth text transition ── */
+        .i18n {
+            transition: opacity 0.25s ease;
+        }
+        .i18n.swapping {
+            opacity: 0;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- ========== LANGUAGE TOGGLE ========== -->
+    <button class="lang-toggle" id="langToggle" onclick="switchLanguage()">
+        <span class="indicator" id="langIndicator">ID</span>
+        <span class="label" id="langLabel">Bahasa</span>
+    </button>
 
     <!-- ========== HERO ========== -->
     <section class="hero">
         <div class="hero-content">
             <div class="hero-text">
-                <span class="hero-badge">Portfolio 2026</span>
+                <span class="hero-badge i18n" data-key="heroBadge">AI Portofolio by Catur Ridho A.P.</span>
                 <h1>
-                    Multi-Agent<br>
-                    <span class="gradient">Orchestration</span>
+                    <span class="i18n" data-key="heroTitle1">Multi-Agent</span><br>
+                    <span class="gradient i18n" data-key="heroTitle2">Orchestration</span>
                 </h1>
-                <p class="hero-subtitle">
+                <p class="hero-subtitle i18n" data-key="heroSubtitle">
                     Saya merancang sistem di mana AI Agents bekerja bersama — 
                     dari OSINT reconnaissance hingga vulnerability assessment 
                     dan analisis pasar otomatis.
                 </p>
-                <p class="hero-bio">
+                <p class="hero-bio i18n" data-key="heroBio">
                     Tidak sekadar menggunakan AI. Saya mengorkestrasinya — 
                     setiap agent punya peran, setiap output punya validasi, 
                     dan semuanya berjalan otomatis.
                 </p>
                 <div class="hero-actions">
-                    <a href="#projects" class="btn btn-primary">
+                    <a href="#projects" class="btn btn-primary i18n" data-key="btnProjects">
                         Lihat Project &darr;
                     </a>
-                    <a href="#agents" class="btn btn-secondary">
+                    <a href="#agents" class="btn btn-secondary i18n" data-key="btnAgents">
                         Tentang Agents
                     </a>
                 </div>
@@ -52,7 +114,7 @@
         </div>
 
         <div class="scroll-indicator">
-            <span>Scroll</span>
+            <span class="i18n" data-key="scrollText">Scroll</span>
             <div class="scroll-line"></div>
         </div>
     </section>
@@ -60,21 +122,21 @@
     <!-- ========== PROJECTS ========== -->
     <section id="projects" class="projects container">
         <div class="section-header reveal">
-            <h2>Project</h2>
-            <p>Tiga sistem yang berjalan nyata — bukan demo, bukan tutorial.</p>
+            <h2 class="i18n" data-key="projectsTitle">Project</h2>
+            <p class="i18n" data-key="projectsSubtitle">Tiga sistem yang berjalan nyata — bukan demo, bukan tutorial.</p>
         </div>
 
         <!-- Project A -->
         <div class="project-card reveal reveal-delay-1">
             <div class="project-main">
                 <span class="project-number">01</span>
-                <h3>Automated Security Recon Pipeline</h3>
-                <p class="project-desc">
+                <h3 class="i18n" data-key="projATitle">Automated Security Recon Pipeline</h3>
+                <p class="project-desc i18n" data-key="projADesc">
                     Pipeline OSINT otomatis yang menerima target domain atau IP, 
                     menjalankan reconnaissance multi-layer via <strong>Santika Agent</strong>, 
                     dan menghasilkan executive report yang siap disajikan ke klien.
                 </p>
-                <div class="project-highlight">
+                <div class="project-highlight i18n" data-key="projAHighlight">
                     <strong>Keunggulan:</strong> Berjalan otomatis setiap 24 jam via GitHub Actions. 
                     Output berupa report HTML/Markdown dengan executive summary, attack surface map, 
                     dan severity breakdown. Cocok untuk security assessment rutin.
@@ -87,9 +149,9 @@
                 </div>
             </div>
             <div class="project-aside">
-                <span class="project-status status-dev">Dalam Pengembangan</span>
+                <span class="project-status status-dev i18n" data-key="statusDev">Dalam Pengembangan</span>
                 <a href="project-a-osint-pipeline/" class="project-link-card">
-                    Detail <span class="arrow">&rarr;</span>
+                    <span class="i18n" data-key="detailText">Detail</span> <span class="arrow">&rarr;</span>
                 </a>
             </div>
         </div>
@@ -98,14 +160,14 @@
         <div class="project-card reveal reveal-delay-2">
             <div class="project-main">
                 <span class="project-number">02</span>
-                <h3>AI-Augmented Vulnerability Assessment Lab</h3>
-                <p class="project-desc">
+                <h3 class="i18n" data-key="projBTitle">AI-Augmented Vulnerability Assessment Lab</h3>
+                <p class="project-desc i18n" data-key="projBDesc">
                     Lab Vulnerability Assessment menggunakan target seperti Metasploitable 
                     dan DVWA di Linux VM. Scanning dilakukan dengan Nmap, Nikto, dan Nuclei, 
                     lalu hasilnya divalidasi oleh <strong>Santika Agent</strong> untuk mengurangi 
                     false positive.
                 </p>
-                <div class="project-highlight">
+                <div class="project-highlight i18n" data-key="projBHighlight">
                     <strong>Keunggulan:</strong> Setiap temuan diverifikasi oleh AI sebelum masuk ke laporan. 
                     Risk matrix dengan severity scoring (Critical → Low) dan remediation plan 
                     yang aplikatif. Bukan sekadar daftar CVE — ada konteks dan prioritas.
@@ -118,9 +180,9 @@
                 </div>
             </div>
             <div class="project-aside">
-                <span class="project-status status-plan">Rencana</span>
+                <span class="project-status status-plan i18n" data-key="statusPlan">Rencana</span>
                 <a href="project-b-va-lab/" class="project-link-card">
-                    Detail <span class="arrow">&rarr;</span>
+                    <span class="i18n" data-key="detailText">Detail</span> <span class="arrow">&rarr;</span>
                 </a>
             </div>
         </div>
@@ -129,13 +191,13 @@
         <div class="project-card reveal reveal-delay-3">
             <div class="project-main">
                 <span class="project-number">03</span>
-                <h3>Autonomous Market Analysis Dashboard</h3>
-                <p class="project-desc">
+                <h3 class="i18n" data-key="projCTitle">Autonomous Market Analysis Dashboard</h3>
+                <p class="project-desc i18n" data-key="projCDesc">
                     Market scanner harian yang menganalisis struktur SMC (Smart Money Concepts), 
                     candlestick patterns, dan indikator teknikal — menghasilkan interactive chart 
                     report secara otonom setiap pukul 20:00 WITA via <strong>Ningguang Agent</strong>.
                 </p>
-                <div class="project-highlight">
+                <div class="project-highlight i18n" data-key="projCHighlight">
                     <strong>Keunggulan:</strong> Berjalan 3+ bulan berturut-turut tanpa intervensi. 
                     Setiap report mencakup market overview, skor teknis, dan rekomendasi level 
                     entry/stop-loss/take-profit. Konsistensi adalah bukti utama.
@@ -148,9 +210,9 @@
                 </div>
             </div>
             <div class="project-aside">
-                <span class="project-status status-plan">Rencana</span>
+                <span class="project-status status-plan i18n" data-key="statusPlan">Rencana</span>
                 <a href="project-c-trading-dashboard/" class="project-link-card">
-                    Detail <span class="arrow">&rarr;</span>
+                    <span class="i18n" data-key="detailText">Detail</span> <span class="arrow">&rarr;</span>
                 </a>
             </div>
         </div>
@@ -159,11 +221,11 @@
     <!-- ========== AGENT INTRODUCTIONS ========== -->
     <section id="agents" class="agent-intro-section container">
         <div class="section-header reveal">
-            <h2>Tentang Agents</h2>
-            <p>Mengapa nama Ningguang dan Santika? Keduanya bukan sekadar label — ada alasan di baliknya.</p>
+            <h2 class="i18n" data-key="agentsTitle">Tentang Agents</h2>
+            <p class="i18n" data-key="agentsSubtitle">Mengapa nama Ningguang dan Santika? Keduanya bukan sekadar label — ada alasan di baliknya.</p>
         </div>
 
-        <!-- Ningguang Card: Image Left, Text Right -->
+        <!-- Ningguang Card -->
         <div class="agent-profile-card reveal reveal-delay-1">
             <div class="agent-profile-img">
                 <div class="agent-profile-circle ningguang-glow">
@@ -173,9 +235,9 @@
             <div class="agent-profile-text">
                 <div class="agent-profile-header">
                     <h3>Ningguang</h3>
-                    <span class="agent-profile-role">Analisis Market &amp; Reporting</span>
+                    <span class="agent-profile-role i18n" data-key="ningRole">Analisis Market &amp; Reporting</span>
                 </div>
-                <p>
+                <p class="i18n" data-key="ningDesc">
                     Dalam game <em>Genshin Impact</em>, Ningguang adalah Tianquan dari Liyue Qixing — 
                     seorang pengusaha dan diplomat yang dikenal karena ketajaman pikirannya, 
                     ketelitiannya dalam mengelola informasi, dan kemampuannya mengambil keputusan 
@@ -187,7 +249,7 @@
             </div>
         </div>
 
-        <!-- Santika Card: Text Left, Image Right -->
+        <!-- Santika Card -->
         <div class="agent-profile-card reverse reveal reveal-delay-2">
             <div class="agent-profile-img">
                 <div class="agent-profile-circle santika-glow">
@@ -197,9 +259,9 @@
             <div class="agent-profile-text">
                 <div class="agent-profile-header">
                     <h3>Santika</h3>
-                    <span class="agent-profile-role">OSINT &amp; Security Assessment</span>
+                    <span class="agent-profile-role i18n" data-key="santRole">OSINT &amp; Security Assessment</span>
                 </div>
-                <p>
+                <p class="i18n" data-key="santDesc">
                     Nama Santika berasal dari bidang tempat saya bekerja: <strong>Persandian</strong> (kriptografi, 
                     keamanan informasi) dan Aplikasi <strong>Informatika</strong>. Dari sinilah Santika hadir — 
                     sebagai agent yang fokus pada OSINT reconnaissance, vulnerability assessment, 
@@ -215,8 +277,8 @@
     <!-- ========== TECH STACK ========== -->
     <section id="stack" class="stack-section container">
         <div class="section-header reveal">
-            <h2>Tech Stack</h2>
-            <p>Tools yang saya gunakan — semuanya open-source atau self-hosted.</p>
+            <h2 class="i18n" data-key="stackTitle">Tech Stack</h2>
+            <p class="i18n" data-key="stackSubtitle">Tools yang saya gunakan — semuanya open-source atau self-hosted.</p>
         </div>
 
         <div class="stack-grid reveal">
@@ -239,13 +301,102 @@
     <footer class="container">
         <p>
             2026 &middot; 
-            Dibangun dengan AI Agents — diorkestrasi oleh manusia. &middot;
+            <span class="i18n" data-key="footerText">Dibangun dengan AI Agents — diorkestrasi oleh manusia.</span> &middot;
             <a href="https://linkedin.com/in/nubie-boy" class="linkedin-link" target="_blank">LinkedIn</a>
         </p>
     </footer>
 
-    <!-- ========== SCROLL REVEAL SCRIPT ========== -->
+    <!-- ========== LANGUAGE SWITCHER & SCROLL REVEAL ========== -->
     <script>
+        // ── Translation Dictionary ──
+        const translations = {
+            en: {
+                heroBadge: 'AI Portfolio by Catur Ridho A.P.',
+                heroTitle1: 'Multi-Agent',
+                heroTitle2: 'Orchestration',
+                heroSubtitle: 'I design systems where AI Agents work together — from OSINT reconnaissance to vulnerability assessment and automated market analysis.',
+                heroBio: 'Not just using AI. I orchestrate it — every agent has a role, every output has validation, and everything runs automatically.',
+                btnProjects: 'View Projects &darr;',
+                btnAgents: 'About Agents',
+                scrollText: 'Scroll',
+                projectsTitle: 'Projects',
+                projectsSubtitle: 'Three real-running systems — not demos, not tutorials.',
+                projATitle: 'Automated Security Recon Pipeline',
+                projADesc: 'An automated OSINT pipeline that accepts domain or IP targets, performs multi-layer reconnaissance via <strong>Santika Agent</strong>, and generates executive reports ready for client presentation.',
+                projAHighlight: '<strong>Key Advantage:</strong> Runs automatically every 24 hours via GitHub Actions. Outputs HTML/Markdown reports with executive summary, attack surface map, and severity breakdown. Ideal for routine security assessments.',
+                statusDev: 'In Development',
+                projBTitle: 'AI-Augmented Vulnerability Assessment Lab',
+                projBDesc: 'A Vulnerability Assessment lab using targets like Metasploitable and DVWA on Linux VMs. Scanning is performed with Nmap, Nikto, and Nuclei, then results are validated by <strong>Santika Agent</strong> to reduce false positives.',
+                projBHighlight: '<strong>Key Advantage:</strong> Every finding is AI-verified before inclusion. Risk matrix with severity scoring (Critical → Low) and actionable remediation plans. Not just a CVE list — context and priority included.',
+                statusPlan: 'Planned',
+                projCTitle: 'Autonomous Market Analysis Dashboard',
+                projCDesc: 'A daily market scanner analyzing SMC (Smart Money Concepts) structures, candlestick patterns, and technical indicators — autonomously generating interactive chart reports every day at 20:00 WITA via <strong>Ningguang Agent</strong>.',
+                projCHighlight: '<strong>Key Advantage:</strong> Runs 3+ consecutive months without intervention. Each report includes market overview, technical scores, and entry/stop-loss/take-profit level recommendations. Consistency is the primary proof.',
+                detailText: 'Details',
+                agentsTitle: 'About Agents',
+                agentsSubtitle: 'Why the names Ningguang and Santika? Both are not merely labels — there is a reason behind each.',
+                ningRole: 'Market Analysis &amp; Reporting',
+                ningDesc: 'In the game <em>Genshin Impact</em>, Ningguang is the Tianquan of the Liyue Qixing — a businesswoman and diplomat known for her sharp intellect, precision in managing information, and ability to make decisions based on data rather than feelings. These are the traits I adapted into this agent. Ningguang handles technical analysis, market reports, and everything requiring precision and clarity — because in trading and intelligence, every detail carries weight.',
+                santRole: 'OSINT &amp; Security Assessment',
+                santDesc: 'The name Santika draws from the fields I work in: <strong>Persandian</strong> (cryptography, information security) and <strong>Informatics</strong> Applications. From this, Santika was born — an agent focused on OSINT reconnaissance, vulnerability assessment, and penetration testing. True to its name, Santika operates at the intersection of cryptography, intelligence gathering, and application security. It automates the reconnaissance and validation phases — so human analysts can focus on findings that truly require decisions.',
+                stackTitle: 'Tech Stack',
+                stackSubtitle: 'Tools I use — all open-source or self-hosted.',
+                footerText: 'Built with AI Agents — orchestrated by humans.',
+            }
+        };
+
+        let currentLang = 'id';
+
+        function switchLanguage() {
+            const toLang = currentLang === 'id' ? 'en' : 'id';
+            
+            // Animate: fade out
+            const elements = document.querySelectorAll('.i18n');
+            elements.forEach(el => el.classList.add('swapping'));
+
+            setTimeout(() => {
+                if (toLang === 'id') {
+                    // Switch back to Indonesian (original content)
+                    elements.forEach(el => {
+                        el.innerHTML = el.getAttribute('data-original') || el.innerHTML;
+                    });
+                } else {
+                    // Switch to English
+                    elements.forEach(el => {
+                        const key = el.getAttribute('data-key');
+                        if (key && translations.en[key]) {
+                            // Save original if not yet saved
+                            if (!el.getAttribute('data-original')) {
+                                el.setAttribute('data-original', el.innerHTML);
+                            }
+                            el.innerHTML = translations.en[key];
+                        }
+                    });
+                }
+
+                // Update toggle button appearance
+                const toggle = document.getElementById('langToggle');
+                const indicator = document.getElementById('langIndicator');
+                const label = document.getElementById('langLabel');
+                
+                if (toLang === 'en') {
+                    toggle.classList.add('en');
+                    indicator.textContent = 'EN';
+                    label.textContent = 'English';
+                } else {
+                    toggle.classList.remove('en');
+                    indicator.textContent = 'ID';
+                    label.textContent = 'Bahasa';
+                }
+
+                currentLang = toLang;
+
+                // Fade back in
+                elements.forEach(el => el.classList.remove('swapping'));
+            }, 200);
+        }
+
+        // ── Scroll Reveal Observer ──
         (function() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
