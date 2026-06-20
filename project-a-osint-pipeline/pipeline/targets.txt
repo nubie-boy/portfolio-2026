@@ -1,0 +1,10 @@
+# 🎯 OSINT Pipeline — Target List
+# Format: 1 target per line (domain, subdomain, or IP)
+# Lines starting with # are ignored
+
+# Targets utama (demo/portfolio)
+example.com
+# Add more targets below:
+# tesla.com
+# github.com
+# cloudflare.com

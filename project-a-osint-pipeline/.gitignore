@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Runtime output (regenerated each run)
+output/
+
+# Daily reports (regenerated each run)
+reports/daily/
+
+# Environment files (contain secrets)
+.env

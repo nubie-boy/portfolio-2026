@@ -1,0 +1,52 @@
+name: 🔍 Daily OSINT Scan
+on:
+  schedule:
+    - cron: '0 6 * * *'   # 06:00 UTC setiap hari
+  workflow_dispatch:       # Manual trigger
+
+jobs:
+  scan:
+    name: OSINT Reconnaissance Pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+          pip install -r project-a-osint-pipeline/pipeline/requirements.txt
+
+      - name: Run OSINT Pipeline
+        env:
+          SANTIKA_API_KEY: ${{ secrets.SANTIKA_API_KEY }}
+        run: |
+          cd project-a-osint-pipeline
+          python3 pipeline/orchestrator.py
+
+      - name: Deploy Reports to GitHub Pages
+        run: |
+          mkdir -p _site/project-a/
+          cp -r project-a-osint-pipeline/reports/daily/*.html _site/project-a/ 2>/dev/null || true
+          cp -r project-a-osint-pipeline/reports/sample/*.html _site/project-a/ 2>/dev/null || true
+          # Create index.html pointer ke laporan terbaru
+          LATEST=$(ls -t project-a-osint-pipeline/reports/daily/*.html 2>/dev/null | head -1)
+          if [ -n "$LATEST" ]; then
+            cp "$LATEST" _site/project-a/index.html
+            echo "✅ Deployed latest report: $(basename $LATEST)"
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site/
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4

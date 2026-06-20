@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💎 OSINT Report — example.com | Ningguang</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #0a0a1a 100%);
+            color: #e0d5c1;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .header {
+            text-align: center;
+            padding: 3rem 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        .header .subtitle {
+            color: #a89b85;
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+        }
+        .header .meta { color: #8a7d6a; font-size: 0.9rem; margin-top: 0.3rem; }
+        .header .target-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffd70022, #ff8c0022);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffd700;
+            margin-top: 1rem;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s;
+        }
+        .stat-card:hover { transform: translateY(-2px); }
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-card .label { color: #a89b85; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; }
+        .section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        .section h2 {
+            color: #ffd700;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            padding-bottom: 0.8rem;
+        }
+        .port-grid, .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .port-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .port-card .port-num { font-size: 1.3rem; font-weight: 700; color: #ffd700; }
+        .port-card .port-service { color: #a89b85; font-size: 0.9rem; }
+        .port-card .port-state { font-size: 0.8rem; color: #4caf50; }
+        .finding-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            border-left: 4px solid #666;
+        }
+        .finding-card.severity-critical { border-left-color: #ff1744; }
+        .finding-card.severity-high { border-left-color: #ff9100; }
+        .finding-card.severity-medium { border-left-color: #ffd600; }
+        .finding-card.severity-low { border-left-color: #00e676; }
+        .sev-badge {
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
+        }
+        .severity-critical .sev-badge { background: #ff1744; color: white; }
+        .severity-high .sev-badge { background: #ff9100; color: white; }
+        .severity-medium .sev-badge { background: #ffd600; color: #000; }
+        .severity-low .sev-badge { background: #00e676; color: #000; }
+        .finding-card p { color: #a89b85; font-size: 0.9rem; margin-top: 0.4rem; }
+        .severity-bar {
+            display: flex; height: 2rem; border-radius: 8px; overflow: hidden; margin: 1rem 0;
+        }
+        .sev-segment { display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; transition: width 0.5s; min-width: fit-content; padding: 0 0.5rem; }
+        .sev-critical { background: #ff1744; }
+        .sev-high { background: #ff9100; }
+        .sev-medium { background: #ffd600; color: #000; }
+        .sev-low { background: #00e676; color: #000; }
+        .subdomain-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .subdomain-tag {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #e0d5c1;
+        }
+        .analysis-narrative {
+            background: rgba(255, 215, 0, 0.05);
+            border-left: 3px solid #ffd700;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        ul li { margin: 0.5rem 0; padding-left: 0.5rem; color: #a89b85; }
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #5a4d3a;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+        }
+        .whois-raw {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #8a7d6a;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        @media (max-width: 768px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💎 Tianquan OSINT Report</h1>
+            <div class="subtitle">Jade Chamber — Automated Reconnaissance Pipeline</div>
+            <div class="meta">2026-06-20 · 14:40:06 UTC</div>
+            <div class="target-badge">🎯 example.com</div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-card"><div class="number">4</div><div class="label">Open Ports</div></div>
+            <div class="stat-card"><div class="number">0</div><div class="label">Subdomains</div></div>
+            <div class="stat-card"><div class="number">3</div><div class="label">Risk Indicators</div></div>
+            <div class="stat-card"><div class="number">3</div><div class="label">Total Risks</div></div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Severity Breakdown</h2>
+            <div id="severityChart" class="severity-bar"></div>
+            <script>
+                const sev = {"CRITICAL": 0, "HIGH": 1, "MEDIUM": 2, "LOW": 0, "INFO": 0};
+                const total = Object.values(sev).reduce((a,b) => a+b, 0) || 1;
+                const bar = document.getElementById('severityChart');
+                const order = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'];
+                bar.innerHTML = order.map(s => {
+                    const pct = (sev[s] || 0) / total * 100;
+                    return pct > 0 ? `<div class="sev-segment sev-${s.toLowerCase()}" style="width:${pct}%">${sev[s]} ${s}</div>` : '';
+                }).join('');
+            </script>
+        </div>
+
+        <div class="section">
+            <h2>🌐 Open Ports</h2>
+            <div class="port-grid" id="portGrid"></div>
+            <script>
+                const ports = [{"port": 80, "service": "http", "state": "open"}, {"port": 443, "service": "http", "state": "open"}, {"port": 8080, "service": "http", "state": "open"}, {"port": 8443, "service": "http", "state": "open"}];
+                document.getElementById('portGrid').innerHTML = ports.map(p =>
+                    `<div class="port-card">
+                        <div class="port-num">${p.port}</div>
+                        <div class="port-service">${p.service || 'unknown'}</div>
+                        <div class="port-state">● ${p.state}</div>
+                    </div>`
+                ).join('');
+            </script>
+        </div>
+
+        <div class="section">
+            <h2>⚠️ Risk Indicators</h2>
+            <div class="findings-grid" id="riskGrid"></div>
+            <script>
+                const risks = [{"severity": "MEDIUM", "port": 80, "service": "http", "issue": "HTTP port 80 \u2014 unencrypted traffic, MITM risk"}, {"severity": "MEDIUM", "port": 8080, "service": "http", "issue": "HTTP port 8080 \u2014 unencrypted traffic, MITM risk"}, {"severity": "HIGH", "port": 8443, "service": "http", "issue": "Alternative HTTP port 8443 \u2014 often unprotected or misconfigured"}];
+                document.getElementById('riskGrid').innerHTML = risks.map(r =>
+                    `<div class="finding-card severity-${r.severity.toLowerCase()}">
+                        <span class="sev-badge">${r.severity}</span>
+                        <strong>${r.port ? 'Port ' + r.port : ''} ${r.service}</strong>
+                        <p>${r.issue}</p>
+                    </div>`
+                ).join('');
+            </script>
+        </div>
+
+        <div class="section"><h2>🔗 Nameservers</h2><div class="subdomain-list"><span class="subdomain-tag">hera.ns.cloudflare.com</span><span class="subdomain-tag">elliott.ns.cloudflare.com</span></div></div>
+
+        <div class="section"><h2>📋 Raw WHOIS</h2><div class="whois-raw">Domain Name: EXAMPLE.COM
+   Registry Domain ID: 2336799_DOMAIN_COM-VRSN
+   Registrar WHOIS Server: whois.iana.org
+   Registrar URL: http://res-dom.iana.org
+   Updated Date: 2026-01-16T18:26:50Z
+   Creation Date: 1995-08-14T04:00:00Z
+   Registry Expiry Date: 2026-08-13T04:00:00Z
+   Registrar: RESERVED-Internet Assigned Numbers Authority
+   Registrar IANA ID: 376
+   Registrar Abuse Contact Email:
+   Registrar Abuse Contact Phone:
+   Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited
+   Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
+   Domain Status: clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited
+   Name Server: ELLIOTT.NS.CLOUDFLARE.COM
+   Name Server: HERA.NS.CLOUDFLARE.COM
+   DNSSEC: signedDelegation
+   DNSSEC DS Data: 2371 13 2 C988EC423E3880EB8DD8A46FE06CA230EE23F35B578D64E78B29C3E1C83D245A
+   URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/
+>>> Last update of whois database: 2026-06-20T14:41:23Z <<<
+
+For more information on Whois status codes, please visit https://icann.org/epp
+
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registr</div></div>
+
+        
+            <div class="section">
+                <h2>🧠 Santika AI Analysis</h2>
+                <div class="analysis-narrative">Ditemukan 4 port berisiko pada target. 🔴 8080(http), 8443(http) 🟡 80(http), 443(http) Terdeteksi 10389 subdomain — attack surface besar, pertimbangkan WAF/CDN dan monitoring perimeter.</div>
+                <div id="santikaFindings"></div>
+                <div id="santikaRecs"></div>
+            </div>
+            <script>
+                const findings = [{"severity": "MEDIUM", "port": "80", "service": "http", "reason": "HTTP (non-TLS) \u2014 MITM risk"}, {"severity": "MEDIUM", "port": "443", "service": "http", "reason": "HTTPS \u2014 review TLS/misconfig"}, {"severity": "HIGH", "port": "8080", "service": "http", "reason": "Alt HTTP \u2014 often unprotected"}, {"severity": "HIGH", "port": "8443", "service": "http", "reason": "Alt HTTPS \u2014 often unprotected"}];
+                const recs = ["Review akses port 8080 \u2014 restrict IP, gunakan VPN, atau matikan layanan jika tidak dibutuhkan.", "Review akses port 8443 \u2014 restrict IP, gunakan VPN, atau matikan layanan jika tidak dibutuhkan.", "Audit subdomain secara berkala, tambahkan takeover detection."];
+                const findingsDiv = document.getElementById('santikaFindings');
+                findingsDiv.innerHTML = '<h3>Risk Findings</h3><div class="findings-grid">' +
+                    findings.map(f => `<div class="finding-card severity-${f.severity.toLowerCase()}">
+                        <span class="sev-badge">${f.severity}</span>
+                        <strong>Port ${f.port}</strong> — ${f.service}
+                        <p>${f.reason}</p>
+                    </div>`).join('') + '</div>';
+                const recsDiv = document.getElementById('santikaRecs');
+                recsDiv.innerHTML = '<h3>💡 Recommendations</h3><ul>' +
+                    recs.map(r => `<li>${r}</li>`).join('') + '</ul>';
+            </script>
+
+        <div class="footer">
+            💎 Generated by Lady Ningguang · Tianquan of the Liyue Qixing · OSINT Pipeline
+        </div>
+    </div>
+</body>
+</html>
